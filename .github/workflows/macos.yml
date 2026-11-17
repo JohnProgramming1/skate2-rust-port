@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: brew install cmake ninja
-      - uses: dtolnay/rust-toolchain@1.85
+      - uses: dtolnay/rust-toolchain@1.90
       - run: echo "${{ secrets.RELEASE_SECRET }}" > release-secret.txt
       - run: ./build-release-macos.sh
       - run: tar -czf skate2-macos.tar.gz -C dist macos
