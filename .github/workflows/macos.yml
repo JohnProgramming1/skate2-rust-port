@@ -1,0 +1,16 @@
+name: macos
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - run: brew install cmake ninja
+      - uses: dtolnay/rust-toolchain@stable
+      - run: echo "${{ secrets.RELEASE_SECRET }}" > release-secret.txt
+      - run: ./build-release-macos.sh
+      - run: tar -czf skate2-macos.tar.gz -C dist macos
+      - uses: actions/upload-artifact@v4
+        with:
+          name: skate2-macos
+          path: skate2-macos.tar.gz
